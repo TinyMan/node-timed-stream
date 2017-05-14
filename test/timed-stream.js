@@ -170,6 +170,21 @@ describe("TimedStream", function () {
 			t.period = 10
 		}, 1000));
 	})
+	it.only("should contain the correct rate in the member .rate", done => {
+		let rate = 512
+		const t = new TimedStream({ rate: rate, period: 50 })
+		const r = new RandomStream(2048)
+		t.on('data', () => expect(t.rate).to.be.equal(rate))
+		t.on('end', () => {
+			expect(t.rate).to.be.equal(rate)
+			done()
+		})
+		r.pipe(t)
+		timers.push(setTimeout(function () {
+			rate = 1024
+			t.rate = rate
+		}, 500));
+	})
 })
 describe("Pausing and other features", function () {
 	this.timeout(20000)
