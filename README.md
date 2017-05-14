@@ -48,4 +48,69 @@ cd node-timed-stream
 npm install
 npm test
 ```
-# Methods
+# JSDoc
+
+## TimedStream
+A TimedStream allow data to passthrough at a given rate and pause/resume at any time
+
+**Kind**: global class
+
+* [TimedStream](#TimedStream)
+    * [new TimedStream([options])](#new_TimedStream_new)
+    * [.rate](#TimedStream+rate) : <code>number</code>
+    * [.period](#TimedStream+period) : <code>number</code>
+    * [.streamPaused](#TimedStream+streamPaused) : <code>boolean</code>
+    * [.totalTime](#TimedStream+totalTime) : <code>number</code>
+    * [.pauseStream()](#TimedStream+pauseStream)
+    * [.resumeStream()](#TimedStream+resumeStream)
+
+<a name="new_TimedStream_new"></a>
+
+### new TimedStream([options])
+Creates an instance of TimedStream.
+
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [options] | <code>object</code> |  | Options forwarder to Stream.Transform ctor |
+| [options.rate] | <code>number</code> | <code>0</code> | Bytes per seconds (0: unlimited) |
+| [options.period] | <code>number</code> | <code>100</code> | Time between data event in ms |
+
+<a name="TimedStream+rate"></a>
+
+### timedStream.rate : <code>number</code>
+The rate in bytes per second
+
+**Kind**: instance property of [<code>TimedStream</code>](#TimedStream)
+<a name="TimedStream+period"></a>
+
+### timedStream.period : <code>number</code>
+The period between data events in ms
+
+**Kind**: instance property of [<code>TimedStream</code>](#TimedStream)
+<a name="TimedStream+streamPaused"></a>
+
+### timedStream.streamPaused : <code>boolean</code>
+True if the stream is paused
+
+**Kind**: instance property of [<code>TimedStream</code>](#TimedStream)
+<a name="TimedStream+totalTime"></a>
+
+### timedStream.totalTime : <code>number</code>
+The total time that the data flowed
+
+**Kind**: instance property of [<code>TimedStream</code>](#TimedStream)
+**Read only**: true
+<a name="TimedStream+pauseStream"></a>
+
+### timedStream.pauseStream()
+Pause the stream
+
+**Kind**: instance method of [<code>TimedStream</code>](#TimedStream)
+<a name="TimedStream+resumeStream"></a>
+
+### timedStream.resumeStream()
+Resume the stream
+
+**Kind**: instance method of [<code>TimedStream</code>](#TimedStream)
+
