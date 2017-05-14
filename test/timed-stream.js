@@ -170,7 +170,7 @@ describe("TimedStream", function () {
 			t.period = 10
 		}, 1000));
 	})
-	it.only("should contain the correct rate in the member .rate", done => {
+	it("should contain the correct rate in the member .rate", done => {
 		let rate = 512
 		const t = new TimedStream({ rate: rate, period: 50 })
 		const r = new RandomStream(2048)

@@ -4,8 +4,8 @@
   "description": "Yet another timed stream package",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
-    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && codecov"
+    "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec",
+    "cover": "codecov"
   },
   "keywords": [
     "stream",

@@ -19,4 +19,4 @@ t.on('end', () => {
 	console.log("Total length: " + c)
 })
 
-fs.createReadStream('./rate.js').pipe(t)
+fs.createReadStream(__filename).pipe(t)
