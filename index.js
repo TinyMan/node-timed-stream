@@ -1,7 +1,16 @@
 const Stream = require('stream')
 const debug = require('debug')('TimedStream')
 
+/**
+ * A TimedStream allow data to passthrough at a given rate and pause/resume at any time
+ */
 class TimedStream extends Stream.Transform {
+	/**
+	 * Creates an instance of TimedStream.
+	 * @param {object} [options] Options forwarder to Stream.Transform ctor
+	 * @param {number} [options.rate=0] Bytes per seconds (0: unlimited)
+	 * @param {number} [options.period=100] Time between data event in ms
+	 */
 	constructor(options) {
 		super(options)
 		const opts = Object.assign({
@@ -25,17 +34,30 @@ class TimedStream extends Stream.Transform {
 		this._chunkSize = 0
 		this._timePaused = 0
 
-		this.rate = opts.rate
+		/**
+		 * The rate in bytes per second
+		 * @member {number} TimedStream#rate
+		 */
+		this.rate = opts.rate		
+		/**
+		 * The period between data events in ms
+		 * @member {number} TimedStream#period
+		 */
 		this.period = opts.period
 
+		/**
+		 * True if the stream is paused
+		 * @member {boolean} TimedStream#streamPaused
+		 */
 		this.streamPaused = false
 
-		this.registerInterval()
+		this._registerInterval()
 		// debug("rate: %d, period: %d", this._rate, this._period)
 	}
-	destructor() {
-		clearInterval(this._interval)
-	}
+	/**
+	 * Pause the stream
+	 * @method TimedStream#pauseStream
+	 */
 	pauseStream() {
 		// debug('pause')
 		if (this.streamPaused) return
@@ -45,14 +67,18 @@ class TimedStream extends Stream.Transform {
 		this.streamPaused = true
 		this._pauseStart = Date.now()
 	}
+	/**
+	 * Resume the stream
+	 * @method TimedStream#resumeStream
+	 */
 	resumeStream() {
 		// debug("resume")
 		if (!this.streamPaused) return
 		this.streamPaused = false
-		this.registerInterval()
+		this._registerInterval()
 		this._timePaused += Date.now() - this._pauseStart
 	}
-	registerInterval() {
+	_registerInterval() {
 		if (this._interval) {
 			clearInterval(this._interval)
 			this._interval = null
@@ -118,8 +144,13 @@ class TimedStream extends Stream.Transform {
 		this._period = period
 		this._chunkSize = this.period * this.rate
 	}
-	get rate() { return this._rate }
+	get rate() { return this._rate * 1000 }
 	get period() { return this._period }
+	/**
+	 * The total time that the data flowed
+	 * @readonly
+	 * @member {number} TimedStream#totalTime
+	 */
 	get totalTime() {
 		return this.last - this.start // - this._timePaused is done each time last is assigned
 	}
