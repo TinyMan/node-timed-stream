@@ -38,7 +38,7 @@ class TimedStream extends Stream.Transform {
 		 * The rate in bytes per second
 		 * @member {number} TimedStream#rate
 		 */
-		this.rate = opts.rate		
+		this.rate = opts.rate
 		/**
 		 * The period between data events in ms
 		 * @member {number} TimedStream#period
@@ -66,6 +66,7 @@ class TimedStream extends Stream.Transform {
 		}
 		this.streamPaused = true
 		this._pauseStart = Date.now()
+		this._internalStream.removeAllListeners("readable")
 	}
 	/**
 	 * Resume the stream
@@ -77,6 +78,8 @@ class TimedStream extends Stream.Transform {
 		this.streamPaused = false
 		this._registerInterval()
 		this._timePaused += Date.now() - this._pauseStart
+		if (this._internalStream._readableState.emittedReadable) // if it has not been read since the last 'readable' event
+			this._internalStream.emit("readable")
 	}
 	_registerInterval() {
 		if (this._interval) {

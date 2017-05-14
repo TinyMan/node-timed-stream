@@ -366,4 +366,36 @@ describe("Pausing and other features", function () {
 			expect(t._passed).to.be.equal(c)
 		}, Math.floor(Math.random() * 1500)))
 	})
+	it("can be paused even with unlimited rate", done => {
+		const t = new TimedStream()
+		let paused = false
+		let c = 0
+		let written = 0
+		t.on('data', data => {
+			expect(paused, 'should not receive data while paused').to.be.false
+			c += data.length
+		})
+		t.on('end', () => {
+			expect(c, 'should receive all the data we wrote').to.be.equal(written)
+			done()
+		})
+		const i1 = setInterval(() => {
+			t.write(Buffer.alloc(10))
+			written += 10
+		}, 50)
+		const i2 = setInterval(() => {
+			paused = !paused
+			if (paused)
+				t.pauseStream()
+			else
+				t.resumeStream()
+		}, 500)
+		setTimeout(() => {
+			clearInterval(i1)
+			clearInterval(i2)
+			paused = false
+			t.resumeStream()
+			t.end()
+		}, 2000)
+	})
 })
