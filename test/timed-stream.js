@@ -185,6 +185,31 @@ describe("TimedStream", function () {
 			t.rate = rate
 		}, 500));
 	})
+	it("should not end even if data is not coming quickly enough", done => {
+		const t1 = new TimedStream({ rate: 100 })
+		const t2 = new TimedStream({ rate: 1000, period: 10 })
+		const r = new RandomStream(200)
+		let c = 0
+		t2.on('data', data => c += data.length)
+		t2.on('end', () => {
+			expect(c).to.be.equal(200)
+			done()
+		})
+		r.pipe(t1).pipe(t2)
+	})
+	it("should be destroyable and not throw error after detroy", done => {
+		const t2 = new TimedStream({ rate: 1000, period: 10 })
+		let c = 0
+		t2.on('data', data => c += data.length)
+		t2.on('end', () => {
+			done(new Error("Should not emit end after destroyed"))
+		})
+		t2.write(Buffer.alloc(100))
+		t2.destroy()
+		t2.write(Buffer.alloc(100))
+		t2.end()
+		setTimeout(done, 500)
+	})
 })
 describe("Pausing and other features", function () {
 	this.timeout(20000)

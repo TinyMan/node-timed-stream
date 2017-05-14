@@ -52,7 +52,7 @@ class TimedStream extends Stream.Transform {
 		this.streamPaused = false
 
 		this._registerInterval()
-		// debug("rate: %d, period: %d", this._rate, this._period)
+		// debug("new TimedStream(rate: %d, period: %d)", this._rate, this._period)
 	}
 	/**
 	 * Pause the stream
@@ -80,6 +80,16 @@ class TimedStream extends Stream.Transform {
 		this._timePaused += Date.now() - this._pauseStart
 		if (this._internalStream._readableState.emittedReadable) // if it has not been read since the last 'readable' event
 			this._internalStream.emit("readable")
+	}
+	/**
+	 * Destroy the stream. A destroyed stream will not emit 'end' or any other event
+	 * @method TimedStream#destroy
+	 */
+	destroy() {
+		if (this._interval) clearInterval(this._interval)
+		this._internalStream.removeAllListeners("readable")
+		this._internalStream = null
+		this._destroyed = true
 	}
 	_registerInterval() {
 		if (this._interval) {
@@ -116,15 +126,19 @@ class TimedStream extends Stream.Transform {
 		if (data) {
 			this._passed += data.length
 			// if(data.length !== size) debug("Expected size: %d, real size: %d", size, data.length)
+			this.push(data)
+		} else {
+			// debug("Warning: data not coming quickly enough")
 		}
-		this.push(data)
 	}
 	_transform(chunk, encoding, callback) {
 		// debug("Chunk length: ", chunk.length)
+		if (this._destroyed) return
 		this._internalStream.write(chunk, encoding, callback)
 	}
 	_flush(callback) {
 		// debug("Flush")
+		if (this._destroyed) return
 		this._internalStream.on('end', () => {
 			if (this._interval) clearInterval(this._interval)
 			this._interval = null

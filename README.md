@@ -63,6 +63,7 @@ A TimedStream allow data to passthrough at a given rate and pause/resume at any 
     * [.totalTime](#TimedStream+totalTime) : <code>number</code>
     * [.pauseStream()](#TimedStream+pauseStream)
     * [.resumeStream()](#TimedStream+resumeStream)
+    * [.destroy()](#TimedStream+destroy)
 
 <a name="new_TimedStream_new"></a>
 
@@ -113,4 +114,9 @@ Pause the stream
 Resume the stream
 
 **Kind**: instance method of [<code>TimedStream</code>](#TimedStream)
+<a name="TimedStream+destroy"></a>
 
+### timedStream.destroy()
+Destroy the stream. A destroyed stream will not emit 'end' or any other event
+
+**Kind**: instance method of [<code>TimedStream</code>](#TimedStream)
