@@ -84,7 +84,7 @@ class TimedStream extends Stream.Transform {
 			this._interval = null
 		}
 		this._internalStream.removeAllListeners("readable")
-		if (this.rate === 0) {
+		if (this._rate === 0) {
 			this._internalStream.on('readable', this._passthrough.bind(this))
 		} else {
 			this._interval = setInterval(this._passthrough.bind(this), this._period)
@@ -93,11 +93,11 @@ class TimedStream extends Stream.Transform {
 	_passthrough() {
 		// debug("passing through")
 		let size = null;
-		if (this.rate > 0) {
+		if (this._rate > 0) {
 			const now = Date.now() - this._timePaused
 			const elapsed_since_rate_change = now - this._last_rate_change
 
-			const expected = Math.round(this.rate * elapsed_since_rate_change) + this._last_expected
+			const expected = Math.round(this._rate * elapsed_since_rate_change) + this._last_expected
 			size = expected - this._passed
 			if (size <= 0) return
 
@@ -137,12 +137,12 @@ class TimedStream extends Stream.Transform {
 		this._last_rate_change = now
 
 		this._rate = rate
-		this._chunkSize = this.period * this.rate
+		this._chunkSize = this.period * this._rate
 		// debug("set rate. expected: ", this._last_expected)
 	}
 	set period(period) {
 		this._period = period
-		this._chunkSize = this.period * this.rate
+		this._chunkSize = this.period * this._rate
 	}
 	get rate() { return this._rate * 1000 }
 	get period() { return this._period }
