@@ -4,6 +4,8 @@
 [![Dependency Status](https://david-dm.org/TinyMan/node-timed-stream.svg)](https://david-dm.org/TinyMan/node-timed-stream)
 [![devDependencies](https://david-dm.org/TinyMan/node-timed-stream/dev-status.svg)](https://david-dm.org/TinyMan/node-timed-stream?type=dev)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/TinyMan/node-timed-stream/issues)
+[![Code Climate](https://codeclimate.com/github/TinyMan/node-timed-stream/badges/gpa.svg)](https://codeclimate.com/github/TinyMan/node-timed-stream)
+[![npm version](https://badge.fury.io/js/timed-stream.svg)](https://badge.fury.io/js/timed-stream)
 
 Yet another timed stream package. Mostly an exercise.
 
@@ -41,12 +43,9 @@ fs.createReadStream(__filename).pipe(t)
 For more insight please take a look at tests
 
 # Installing
-To install via git and run tests:
+Install via npm:
 ```
-git clone https://github.com/TinyMan/node-timed-stream.git
-cd node-timed-stream
-npm install
-npm test
+npm install --save timed-stream
 ```
 # JSDoc
 
