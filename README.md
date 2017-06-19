@@ -1,4 +1,6 @@
 # node-timed-stream
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/TinyMan/node-timed-stream.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/TinyMan/node-timed-stream.svg?branch=master)](https://travis-ci.org/TinyMan/node-timed-stream)
 [![codecov](https://codecov.io/gh/TinyMan/node-timed-stream/branch/master/graph/badge.svg)](https://codecov.io/gh/TinyMan/node-timed-stream)
 [![Dependency Status](https://david-dm.org/TinyMan/node-timed-stream.svg)](https://david-dm.org/TinyMan/node-timed-stream)
