@@ -1,5 +1,5 @@
 const Stream = require('stream')
-const debug = require('debug')('TimedStream')
+// const debug = require('debug')('TimedStream')
 
 /**
  * A TimedStream allow data to passthrough at a given rate and pause/resume at any time
@@ -85,9 +85,9 @@ class TimedStream extends Stream.Transform {
 	 * Destroy the stream. A destroyed stream will not emit 'end' or any other event
 	 * @method TimedStream#destroy
 	 */
-	destroy() {
+	_destroy() {
 		if (this._interval) clearInterval(this._interval)
-		this._internalStream.removeAllListeners("readable")
+		this._internalStream.removeAllListeners()
 		this._internalStream = null
 		this._destroyed = true
 	}
