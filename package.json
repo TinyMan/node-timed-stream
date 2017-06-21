@@ -1,35 +1,36 @@
 {
-  "name": "timed-stream",
-  "version": "1.0.0",
-  "description": "Yet another timed stream package",
-  "main": "index.js",
-  "scripts": {
-    "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec",
-    "cover": "codecov"
-  },
-  "keywords": [
-    "stream",
-    "throttle",
-    "time",
-    "rate",
-    "pause"
-  ],
-  "author": "TinyMan <raph.a.uzan@gmail.com>",
-  "license": "MIT",
-  "devDependencies": {
-    "chai": "^4.0.2",
-    "codecov": "^2.2.0",
-    "debug": "^2.6.6",
-    "istanbul": "^0.4.5",
-    "mocha": "^3.3.0"
-  },
-  "dependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TinyMan/node-timed-stream.git"
-  },
-  "bugs": {
-    "url": "https://github.com/TinyMan/node-timed-stream/issues"
-  },
-  "homepage": "https://github.com/TinyMan/node-timed-stream#readme"
+	"name": "timed-stream",
+	"version": "1.0.0",
+	"description": "Yet another timed stream package",
+	"main": "index.js",
+	"scripts": {
+		"test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec",
+		"cover": "codecov"
+	},
+	"keywords": [
+		"stream",
+		"throttle",
+		"time",
+		"rate",
+		"pause"
+	],
+	"author": "TinyMan <raph.a.uzan@gmail.com>",
+	"license": "MIT",
+	"devDependencies": {
+		"chai": "^4.0.2",
+		"codecov": "^2.2.0",
+		"debug": "^2.6.6",
+		"istanbul": "^0.4.5",
+		"mocha": "^3.3.0"
+	},
+	"dependencies": {},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/TinyMan/node-timed-stream.git"
+	},
+	"bugs": {
+		"url": "https://github.com/TinyMan/node-timed-stream/issues"
+	},
+	"homepage": "https://github.com/TinyMan/node-timed-stream#readme",
+	"types": "index.d.ts"
 }
