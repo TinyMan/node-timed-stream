@@ -22,7 +22,7 @@
 		"codecov": "^2.2.0",
 		"debug": "^3.0.0",
 		"istanbul": "^0.4.5",
-		"mocha": "^3.3.0"
+		"mocha": "^4.0.1"
 	},
 	"dependencies": {},
 	"repository": {
